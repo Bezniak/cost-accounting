@@ -1,25 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
+import {Costs} from "./components/Costs/Costs";
+import {NewCost} from "./components/NewCost/NewCost";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+
+const INITIAL_COSTS = [
+    {
+        id: 'c1',
+        date: new Date(2021, 2, 12),
+        description: 'Lamborghini Aventador',
+        amount: 789_809,
+    },
+    {
+        id: 'c2',
+        date: new Date(2022, 3, 25),
+        description: 'MacBook',
+        amount: 5200,
+    },
+    {
+        id: 'c3',
+        date: new Date(2023, 7, 4),
+        description: 'Penthouse',
+        amount: 15_000_000,
+    },
+]
+
+const App = () => {
+
+
+    const [costs, setCosts, set] = useState(INITIAL_COSTS);
+
+
+    const addCostHandler = (cost) => {
+        setCosts((prevState) => {
+            return [cost, ...prevState];
+        });
+    }
+
+    return (
+        <div>
+            <NewCost onAddCost={addCostHandler}/>
+            <Costs costs={costs}/>
+        </div>
+    );
+};
 
 export default App;
